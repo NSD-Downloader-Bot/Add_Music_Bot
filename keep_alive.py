@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "NSD Downloader Bot Alive"
+    return "NSD Add Music Bot Alive"
 
 
 def run():
