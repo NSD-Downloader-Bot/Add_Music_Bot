@@ -2,6 +2,11 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 import requests
 
+
+from keep_alive import keep_alive
+
+keep_alive()
+
 ###################### START
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
