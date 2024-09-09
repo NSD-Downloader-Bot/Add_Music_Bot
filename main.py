@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 import requests
-
+import re
 
 from keep_alive import keep_alive
 
@@ -50,11 +50,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         # elif "?" in user_message:
         #     user_message = user_message.split("?")[0]
         
+        def extract_video_id(url):
+            pattern = r'(?:v=|\/)([0-9A-Za-z_-]{11})(?:&|\?|$)'
+            match = re.search(pattern, url)
+            if match:
+                return match.group(1)
+            return None
+        
+        video_id = extract_video_id(user_message)
+        
         url = "https://add-music-server.onrender.com/api/add/music"
         
         data = {
             "URL": user_message,
-            "createdBy": username
+            "createdBy": username,
+            "video_id" : video_id
         }
         
         # Send the PUT request with the JSON data
